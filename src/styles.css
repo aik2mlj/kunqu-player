@@ -104,7 +104,8 @@
   vertical-align: top;
 }
 
-/* 工尺谱斜列容器（等效 Xiqu 的 .lyrics-notes） */
+/* 工尺谱斜列容器（等效 Xiqu 的 .lyrics-notes）
+   标准：column 向下堆叠 + rotate(-50deg) 向右下斜出 */
 .gongche-notes {
   display: flex;
   flex-direction: column;
