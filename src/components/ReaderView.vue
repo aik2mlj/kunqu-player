@@ -241,8 +241,15 @@ const ornText = (o) => [...o].map((c) => ORN_LABEL[c] || c).join('·')
 .gongche-notes .lyrics-note :deep(.gcn-symbol) {
   color: var(--ink-soft);
 }
-.word.active .gongche-notes .lyrics-note :deep(.gcn-symbol) {
-  color: var(--zhu);
+
+/* 板眼套红：传统工尺谱中特定板眼位用朱砂色（对齐 Xiqu-Annotation-System） */
+.gongche-notes .lyrics-note :deep(.gcn-s-beat-1),
+.gongche-notes .lyrics-note :deep(.gcn-s-beat-3),
+.gongche-notes .lyrics-note :deep(.gcn-s-beat-4),
+.gongche-notes .lyrics-note :deep(.gcn-s-beat-5),
+.gongche-notes .lyrics-note :deep(.gcn-s-beat-7),
+.gongche-notes .lyrics-note :deep(.gcn-s-beat-8) {
+  color: #ff4c00;
 }
 .gongche-notes .lyrics-side-note { opacity: .5; }
 </style>
