@@ -106,12 +106,13 @@ const ornText = (o) => [...o].map((c) => ORN_LABEL[c] || c).join('·')
 </template>
 
 <style scoped>
-/* ── 整体：填满 stage 网格行高度（与视频等高）── */
+/* ── 整体：填满 stage 网格行高度，与视频等高，overflow 防止撑开 ── */
 .reader {
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 0;
+  overflow: hidden;
   padding: 4px 6px;
   gap: 4px;
 }
@@ -173,20 +174,21 @@ const ornText = (o) => [...o].map((c) => ORN_LABEL[c] || c).join('·')
 
 /* ═══════════════════════════════════════════════════════════════════════════
    主阅读区：竖排、从右到左
-   每列通过 .word 的 padding-right 预留工尺向右下斜出的空间
+   flex-basis:0 + flex-grow:1 → 精确填充可用高度
+   max-height:100% + overflow:hidden → 不超出，触发 flex-wrap 换列
    ═══════════════════════════════════════════════════════════════════════════ */
 .cur {
   writing-mode: vertical-rl;
   display: flex;
   flex-wrap: wrap;
-  align-content: flex-start;
-  justify-content: flex-end;
-  flex: 1 1 auto;
+  align-content: flex-start;    /* 列从右侧开始 */
+  justify-content: flex-start;  /* 每列字从顶部开始 */
+  flex: 1 1 0;
   min-height: 0;
   max-height: 100%;
   gap: 0 6px;
   padding: 6px 0;
-  overflow: visible;
+  overflow: hidden;
 }
 .prelude {
   color: var(--dai);
@@ -199,7 +201,7 @@ const ornText = (o) => [...o].map((c) => ORN_LABEL[c] || c).join('·')
   position: relative;
   display: inline-block;
   padding: 2px 2px;
-  margin-right: 64px;          /* 每列预留工尺斜出空间 */
+  margin-right: 100px;          /* 每列预留工尺斜出空间 */
   border-radius: 4px;
   transition: background .2s;
   line-height: 1;
@@ -208,7 +210,7 @@ const ornText = (o) => [...o].map((c) => ORN_LABEL[c] || c).join('·')
 
 .lyric {
   font-family: KaiTi, "Kaiti SC", STKaiti, "楷体_GB2312", serif;
-  font-size: clamp(26px, 5.2vh, 42px);
+  font-size: clamp(28px, 5.6vh, 46px);
   line-height: 0.9;
   color: var(--ink);
   transition: color .2s;
@@ -222,12 +224,12 @@ const ornText = (o) => [...o].map((c) => ORN_LABEL[c] || c).join('·')
   color: var(--dai);
 }
 
-/* ── 工尺谱：绝对定位挂字右侧，不参与 flow，不撑高 ── */
+/* ── 工尺谱：绝对定位挂字正右侧，不参与 flow，不撑高 ── */
 .gongche-wrap {
   writing-mode: horizontal-tb;
   position: absolute;
   left: calc(100% + 2px);
-  top: 0;
+  top: 40%;
 }
 .gongche-cell {
   display: inline-flex;
