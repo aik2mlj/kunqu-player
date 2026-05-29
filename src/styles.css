@@ -1,0 +1,248 @@
+/* 工尺谱专用字体（已核对：转码字体，仅供基字/高音区字形） */
+@font-face {
+  font-family: 'GCNSymbolKai';
+  src: url('./assets/GCNSymbolKai.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   工尺谱字形系统 — 对齐 Xiqu-Annotation-System index.css
+   GCNSymbolKai 是转码字体：工尺字形挂在 ASCII/Latin-1 码位上，
+   通过 CSS ::before content 映射 class → 码位字符。
+   ════════════════════════════════════════════════════════════════════════ */
+
+.gcn-symbol {
+  display: block;
+  font-family: "GCNSymbolKai";
+  font-style: normal;
+  font-weight: bold;
+  font-variant: normal;
+  line-height: 1;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+[class^="gcn-s-"]::before,
+[class*=" gcn-s-"]::before {
+  display: block !important;
+}
+
+/* ── 低音区 ── */
+.gcn-s-he-l::before    { content: "\00B1"; height: 1.1em; }
+.gcn-s-si-l::before    { content: "\00B2"; height: 1.1em; }
+.gcn-s-one-l::before   { content: "\00B3"; }
+.gcn-s-shang-l::before { content: "\0021"; height: 1.1em; }
+.gcn-s-che-l::before   { content: "\0022"; height: 1.15em; }
+.gcn-s-gong-l::before  { content: "\0023"; height: 1.1em; }
+.gcn-s-fan-l::before   { content: "\0024"; height: 1.1em; }
+
+/* ── 正常音区（中音）── */
+.gcn-s-he::before    { content: "\0025"; }
+.gcn-s-si::before    { content: "\0026"; }
+.gcn-s-one::before   { content: "\0027"; }
+.gcn-s-shang::before { content: "\0028"; }
+.gcn-s-che::before   { content: "\0029"; }
+.gcn-s-gong::before  { content: "\002A"; }
+.gcn-s-fan::before   { content: "\002B"; }
+.gcn-s-liu::before   { content: "\002C"; }
+.gcn-s-wu::before    { content: "\002D"; }
+.gcn-s-yi::before    { content: "\002E"; }
+
+/* ── 高音区（+1，亻偏旁变体）── */
+.gcn-s-shang-h::before { content: "\002F"; }
+.gcn-s-che-h::before   { content: "\0030"; }
+.gcn-s-gong-h::before  { content: "\0031"; }
+.gcn-s-fan-h::before   { content: "\0032"; }
+.gcn-s-liu-h::before   { content: "\0033"; }
+.gcn-s-wu-h::before    { content: "\0034"; }
+.gcn-s-yi-h::before    { content: "\0035"; }
+
+/* ── 腔格符号 ── */
+.gcn-s-qikou,
+.gcn-s-huoqiang { display: block !important; }
+.gcn-s-qikou::before     { content: "\0066"; font-size: 12px; margin-top: -50%; margin-left: -0.5em; }
+.gcn-s-huoqiang::before  { content: "\0071"; height: 0.6em; margin-top: 0.2em; margin-left: -0.1em; }
+.gcn-s-dieqiang::before  { content: "\0072"; height: 1em; }
+.gcn-s-cuoqiang::before  { content: "\0072"; height: 1em; margin-top: -0.2em; margin-bottom: 0.5em; }
+.gcn-s-souqiang::before  { content: "\0073"; height: 0.8em; }
+
+/* ── 板眼符号 ── */
+.gcn-s-beat-1::before { content: "\0061"; height: 0.8em; margin-left: -0.2em; font-size: 1.4em; }
+.gcn-s-beat-2::before { content: "\0062"; height: 0.7em; }
+.gcn-s-beat-3::before { content: "\0063"; height: 0.8em; }
+.gcn-s-beat-4::before { content: "\0064"; }
+.gcn-s-beat-5::before { content: "\0068"; height: 0.5em; margin-top: -0.2em; }
+.gcn-s-beat-6::before { content: "\0066"; height: 0.8em; }
+.gcn-s-beat-7::before { content: "\0067"; height: 0.8em; }
+.gcn-s-beat-8::before { content: "\0065"; }
+
+/* ── 板眼套红 ── */
+.gongche-reader-redmark .gcn-s-beat-1,
+.gongche-reader-redmark .gcn-s-beat-3,
+.gongche-reader-redmark .gcn-s-beat-4,
+.gongche-reader-redmark .gcn-s-beat-5,
+.gongche-reader-redmark .gcn-s-beat-7,
+.gongche-reader-redmark .gcn-s-beat-8 { color: #ff4c00; }
+
+/* ── 气口位置 ── */
+.lyrics-note .gcn-s-qikou {
+  position: absolute; left: 0; top: 1em;
+}
+.lyrics-side-note .gcn-s-qikou {
+  left: -0.7em; top: 0.8em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   工尺谱布局 — 对齐 Xiqu 的 .gongche-reader-cell / .lyrics-notes
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* 每个唱词的工尺容器（等效 Xiqu 的 .gongche-reader-cell） */
+.gongche-cell {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start;
+  vertical-align: top;
+}
+
+/* 工尺谱斜列容器（等效 Xiqu 的 .lyrics-notes） */
+.gongche-notes {
+  display: flex;
+  flex-direction: column;
+  transform: rotate(-50deg) scaleY(0.93);
+  transform-origin: 0 0;
+  font-size: 15px;
+  color: #22252b;
+  line-height: 1;
+}
+
+/* 只有气口/腔格没有主音名时取消旋转 */
+.gongche-notes.gongche-notes-nonote {
+  transform: none;
+}
+
+/* 每一个工尺/腔格 note（等效 Xiqu 的 .lyrics-note） */
+.gongche-notes .lyrics-note {
+  position: relative;
+  display: block;
+  width: 30px;
+  margin: -0.06em 0;
+  font-weight: bold;
+  line-height: 0.8;
+}
+.gongche-notes .lyrics-note > .gcn-symbol {
+  display: inline-block;
+  width: 14px;
+  margin: 0;
+  font-size: 14px;
+  vertical-align: top;
+}
+
+/* 旁注（小音）*/
+.gongche-notes .lyrics-side-note {
+  margin-top: 1px;
+  margin-left: 7px;
+  font-size: 11px;
+}
+.gongche-notes .lyrics-side-note > .gcn-symbol {
+  width: 11px;
+  font-size: 11px;
+}
+
+/* 相邻叠腔 */
+.gongche-notes .lyrics-note.adj-dieqiang {
+  height: 0.4em;
+  margin: -0.15em 0 0.2em;
+}
+.gongche-notes .adj-dieqiang .gcn-s-dieqiang::before {
+  margin-left: 0.3em;
+}
+
+/* 板眼容器 */
+.gongche-notes .lyrics-beats {
+  display: inline-block;
+  width: 10px;
+  color: #22252b;
+  font-size: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+.gongche-notes .lyrics-beats span {
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* 板眼纵向偏移 */
+.gongche-notes .lyrics-beats .gcn-s-beat-1:first-child { margin-top: -0.2em; }
+.gongche-notes .lyrics-beats .gcn-s-beat-2:first-child { margin-top: 0.15em; }
+.gongche-notes .lyrics-beats .gcn-s-beat-3:first-child { margin-top: 0.1em; }
+.gongche-notes .lyrics-beats .gcn-s-beat-4:first-child { margin-top: 0.2em; }
+.gongche-notes .lyrics-beats .gcn-s-beat-5:first-child { margin-top: 1.4em; }
+.gongche-notes .lyrics-beats .gcn-s-beat-5:last-child  { margin-bottom: 0.1em; }
+.gongche-notes .lyrics-beats .gcn-s-beat-6:first-child { margin-top: 0.85em; }
+.gongche-notes .lyrics-beats .gcn-s-beat-7:first-child,
+.gongche-notes .lyrics-beats .gcn-s-beat-8:first-child { margin-top: 0.8em; }
+.gongche-notes .lyrics-beats .gcn-s-beat-1.first-before-diban { min-height: 1.6em; }
+.gongche-notes .lyrics-beats .gcn-s-beat-2.first-before-diban { min-height: 1.25em; }
+.gongche-notes .lyrics-beats .gcn-s-beat-3.first-before-diban { min-height: 1.3em; }
+
+:root {
+  --paper: #f3ede1;
+  --paper-2: #ece4d4;
+  --panel: #fbf7ef;
+  --ink: #26221b;
+  --ink-soft: #5b5446;
+  --dai: #8d8675;
+  --zhu: #b23a2e;          /* 朱砂 */
+  --zhu-soft: #d98b80;
+  --qing: #3a6b78;         /* 石青：气口/呼吸 */
+  --line: #d3c9b3;
+  --line-2: #e6dcc7;
+  --kai: 'Kaiti SC', 'STKaiti', 'Kaiti', 'KaiTi', 'Songti SC', serif;
+  --num: 'Iowan Old Style', Palatino, Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+html, body, #app { height: 100%; margin: 0; }
+body {
+  background:
+    radial-gradient(130% 80% at 50% -10%, #faf6ee 0%, var(--paper) 55%, var(--paper-2) 100%) fixed;
+  color: var(--ink);
+  font-family: var(--kai);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;            /* 全局不滚动；各面板内部独立滚动 */
+}
+body::before {                 /* 极淡纸纹 */
+  content: ''; position: fixed; inset: 0; pointer-events: none; opacity: .035; z-index: 0;
+  background-image: repeating-linear-gradient(0deg, #000 0 1px, transparent 1px 3px);
+}
+
+button { font-family: inherit; cursor: pointer; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: #cdc3ad; border-radius: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ── 应用骨架：全视口、不上下滚 ───────────────────────────── */
+.app {
+  position: relative; z-index: 1;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 0;
+}
+.body {
+  display: grid;
+  grid-template-columns: 248px minmax(0, 1fr);
+  min-height: 0;               /* 关键：允许内部滚动而非撑开页面 */
+}
+.main {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  min-height: 0;
+  padding: 10px 14px 12px;
+  gap: 8px;
+}
+@media (max-width: 860px) {
+  .body { grid-template-columns: 1fr; grid-auto-rows: minmax(0, auto); }
+}
