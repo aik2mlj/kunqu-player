@@ -112,6 +112,7 @@ const ornText = (o) => [...o].map((c) => ORN_LABEL[c] || c).join('·')
   flex-direction: column;
   height: 100%;
   min-height: 0;
+  min-width: 0;
   overflow: hidden;
   padding: 4px 6px;
   gap: 4px;
@@ -124,12 +125,14 @@ const ornText = (o) => [...o].map((c) => ORN_LABEL[c] || c).join('·')
   gap: 6px;
   min-height: 22px;
   flex: 0 0 auto;
+  overflow: hidden;
 }
 .botbar {
   display: flex;
   align-items: center;
   min-height: 20px;
   flex: 0 0 auto;
+  overflow: hidden;
 }
 .spacer { flex: 1; }
 .ctx {

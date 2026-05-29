@@ -60,7 +60,7 @@ const onUp = () => { dragging = false; window.removeEventListener('mousemove', o
 .transport { display: flex; align-items: center; gap: 11px; padding: 7px 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 24px; }
 .tb { border: none; background: none; font-size: 16px; color: var(--ink); padding: 3px 5px; border-radius: 50%; line-height: 1; }
 .tb:hover { color: var(--zhu); }
-.tb.play { font-size: 19px; }
+.tb.play { font-size: 19px; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; }
 .seek { flex: 1; height: 4px; background: var(--line); border-radius: 3px; position: relative; cursor: pointer; }
 .prog { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--zhu); border-radius: 3px; }
 .knob { position: absolute; top: 50%; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--zhu); transform: translate(-50%, -50%); box-shadow: 0 1px 4px #0004; }
